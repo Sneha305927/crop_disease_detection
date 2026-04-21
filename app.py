@@ -24,7 +24,15 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
 # Load model
-model = load_model(MODEL_PATH)
+model = None
+
+def get_model():
+    global model
+    if model is None:
+        print("Loading model...")
+        model = load_model(MODEL_PATH)
+        print("Model loaded!")
+    return model
 print("✅ Model loaded")
 
 # Image size
@@ -503,6 +511,7 @@ def index():
             img_array = image.img_to_array(img)
             img_array = np.expand_dims(img_array, axis=0) / 255.0
 
+            model = get_model()
             preds = model.predict(img_array)
             predicted_class = np.argmax(preds[0])
             confidence = float(np.max(preds[0]))
