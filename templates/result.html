@@ -5,245 +5,151 @@
 
     <title>{{ ui.prediction_result }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #43cea2, #185a9d);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-        }
+    <!DOCTYPE html>
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            max-width: 900px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
+<html>
+<head>
+    <title>Prediction Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-        h1 {
-            margin-bottom: 10px;
-        }
+```
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(
+        rgba(34, 49, 34, 0.65),
+        rgba(34, 49, 34, 0.65)
+    ),
+    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
 
-        .result-text {
-            font-size: 20px;
-            margin: 10px 0;
-        }
+.card {
+    background: rgba(255, 255, 255, 0.94);
+    padding: 30px;
+    border-radius: 14px;
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    backdrop-filter: blur(6px);
+}
 
-        .confidence {
-            font-size: 18px;
-            color: #2e7d32;
-            margin-bottom: 20px;
-        }
+h1 {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
 
-        .images {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
+.result-text {
+    font-size: 20px;
+    margin: 10px 0;
+}
 
-        .images div {
-            text-align: center;
-        }
+.confidence {
+    font-size: 18px;
+    color: #2f6b38;
+    margin-bottom: 20px;
+}
 
-        img {
-            max-width: 300px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
+.images {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
 
-        a {
-            display: inline-block;
-            margin-top: 30px;
-            text-decoration: none;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #43cea2, #185a9d);
-            color: white;
-            border-radius: 25px;
-            transition: transform 0.2s;
-        }
+.images div {
+    text-align: center;
+}
 
-        a:hover {
-            transform: translateY(-2px);
-        }
+img {
+    max-width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
 
-        .info-box {
-            margin-top: 30px;
-            text-align: left;
-            background: #f7fdfb;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-        }
+a {
+    display: inline-block;
+    margin-top: 30px;
+    text-decoration: none;
+    padding: 10px 22px;
+    background: #3a7d44;
+    color: white;
+    border-radius: 8px;
+}
 
-        .info-box h2 {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #185a9d;
-        }
+a:hover {
+    background: #2f6b38;
+}
 
-        .info-box p {
-            margin: 8px 0;
-            font-size: 16px;
-        }
-    </style> -->
+.info-box {
+    margin-top: 30px;
+    text-align: left;
+    background: rgba(245, 252, 246, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+}
 
-    <style>
-    body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        min-height: 100vh;
-        background: linear-gradient(
-            rgba(34, 49, 34, 0.65),
-            rgba(34, 49, 34, 0.65)
-        ),
-        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 30px;
-    }
+.info-box h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #2f6b38;
+}
 
-    .card {
-        background: rgba(255, 255, 255, 0.94);
-        padding: 30px;
-        border-radius: 14px;
-        max-width: 900px;
-        width: 100%;
-        text-align: center;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-        backdrop-filter: blur(6px);
-        transition: 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-3px);
-    }
-
-    h1 {
-        margin-bottom: 10px;
-        font-weight: 600;
-    }
-
-    .result-text {
-        font-size: 20px;
-        margin: 10px 0;
-    }
-
-    .confidence {
-        font-size: 18px;
-        color: #2f6b38;
-        margin-bottom: 20px;
-    }
-
-    .images {
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-        flex-wrap: wrap;
-        margin-top: 10px;
-    }
-
-    .images div {
-        text-align: center;
-    }
-
-    img {
-        max-width: 300px;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-
-    /* 🌱 Button link */
-    a {
-        display: inline-block;
-        margin-top: 30px;
-        text-decoration: none;
-        padding: 10px 22px;
-        background: #3a7d44;
-        color: white;
-        border-radius: 8px;
-        transition: 0.3s ease;
-    }
-
-    a:hover {
-        background: #2f6b38;
-        transform: translateY(-2px);
-    }
-
-    /* 🌿 Info box */
-    .info-box {
-        margin-top: 30px;
-        text-align: left;
-        background: rgba(245, 252, 246, 0.9);
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: inset 0 0 8px rgba(0,0,0,0.08);
-    }
-
-    .info-box h2 {
-        text-align: center;
-        margin-bottom: 15px;
-        color: #2f6b38;
-    }
-
-    .info-box p {
-        margin: 8px 0;
-        font-size: 15px;
-        color: #333;
-    }
-
-
-    
+.info-box p {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #333;
+}
 </style>
 </head>
+
 <body>
 
-    <div class="card">
-        <h1>✅ {{ ui.prediction_result }}</h1>
+```
+<div class="card">
+    <h1>✅ Prediction Result</h1>
 
-        <div class="result-text">
-            🌱 {{ ui.disease_detected }}: <b>{{ prediction }}</b>
-        </div>
-
-        <div class="confidence">
-            {{ ui.confidence }}: {{ confidence }}%
-        </div>
-
-        <div class="images">
-            <div>
-                <h3>{{ ui.original }}</h3>
-                <img src="{{ url_for('static', filename=uploaded_image) }}">
-            </div>
-
-            <div>
-                <h3>{{ ui.attention }}</h3>
-                <img src="{{ url_for('static', filename=heatmap_image) }}">
-            </div>
-        </div>
-
-        <!-- 🌱 Disease Info Box -->
-        <div class="info-box">
-            <h2>🩺 {{ ui.disease_info }}</h2>
-            <p><b>{{ ui.description }}:</b> {{ description }}</p>
-            <p><b>{{ ui.symptoms }}:</b> {{ symptoms }}</p>
-            <p><b>{{ ui.treatment }}:</b> {{ treatment }}</p>
-            <p><b>{{ ui.prevention }}:</b> {{ prevention }}</p>
-        </div>
-
-        <a href="/">{{ ui.analyze_again }}</a>
+    <div class="result-text">
+        🌱 Disease Detected: <b>{{ prediction }}</b>
     </div>
 
+    <div class="confidence">
+        Confidence: {{ confidence }}%
+    </div>
+
+    <div class="images">
+        <div>
+            <h3>Original Image</h3>
+            <img src="{{ url_for('static', filename=uploaded_image) }}">
+        </div>
+
+        <div>
+            <h3>Attention Map</h3>
+            <img src="{{ url_for('static', filename=heatmap_image) }}">
+        </div>
+    </div>
+
+    <div class="info-box">
+        <h2>🩺 Disease Information</h2>
+        <p><b>Description:</b> {{ description }}</p>
+        <p><b>Symptoms:</b> {{ symptoms }}</p>
+        <p><b>Treatment:</b> {{ treatment }}</p>
+        <p><b>Prevention:</b> {{ prevention }}</p>
+    </div>
+
+    <a href="/">Analyze Again</a>
+</div>
+```
+
 </body>
-
-
 </html>
+
