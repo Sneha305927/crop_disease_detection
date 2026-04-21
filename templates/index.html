@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google" content="notranslate">
+
+    <title>{{ ui.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- <style>
+       body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* 🌐 Language selector top-right */
+        .language-box {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: white;
+            padding: 12px 14px;
+            border-radius: 14px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            width: 170px;
+        }
+
+        .lang-title {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            text-align: left;
+            color: #333;
+        }
+
+        .language-box select {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            background: white;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            width: 420px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        input[type=file] {
+            margin: 12px 0;
+        }
+
+        button {
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+    </style> -->
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(
+            rgba(34, 49, 34, 0.65),
+            rgba(34, 49, 34, 0.65)
+        ),
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    /* 🌐 Language selector */
+    .language-box {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 12px 14px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        width: 170px;
+        backdrop-filter: blur(6px);
+    }
+
+    .lang-title {
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 6px;
+        color: #333;
+    }
+
+    .language-box select {
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        cursor: pointer;
+        background: white;
+    }
+
+    /* 🌿 Main Card */
+    .card {
+        background: rgba(255, 255, 255, 0.92);
+        padding: 40px;
+        border-radius: 14px;
+        width: 420px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        backdrop-filter: blur(6px);
+    }
+
+    h1 {
+        margin-bottom: 10px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    h2 {
+        margin-top: 0;
+        font-weight: 500;
+        color: #2f3e2f;
+    }
+
+    p {
+        color: #555;
+        font-size: 14px;
+    }
+
+    input[type=file] {
+        margin: 15px 0;
+    }
+
+    /* 🌱 Button */
+    button {
+        background: #3a7d44;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        font-size: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    button:hover {
+        background: #2f6b38;
+        transform: translateY(-1px);
+    }
+</style>
+</head>
+<body>
+
+<!-- 🌐 Language selector -->
+<form method="GET" class="language-box">
+    <div class="lang-title">🌐 Change Language</div>
+    <select name="lang" onchange="this.form.submit()">
+        <option value="en" {% if selected_lang=='en' %}selected{% endif %}>English</option>
+        <option value="hi" {% if selected_lang=='hi' %}selected{% endif %}>हिंदी</option>
+        <option value="mr" {% if selected_lang=='mr' %}selected{% endif %}>मराठी</option>
+        <option value="pa" {% if selected_lang=='pa' %}selected{% endif %}>ਪੰਜਾਬੀ</option>
+        <option value="as" {% if selected_lang=='as' %}selected{% endif %}>অসমীয়া</option>
+        <option value="hr" {% if selected_lang=='hr' %}selected{% endif %}>Haryanvi</option>
+    </select>
+</form>
+
+<div class="card">
+    <h1>🌿 {{ ui.welcome }}</h1>
+    <h2>{{ ui.title }}</h2>
+    <p>{{ ui.upload_text }}</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="language" value="{{ selected_lang }}">
+        <input type="file" name="image" required>
+        <br>
+        <button type="submit">{{ ui.button }}</button>
+    </form>
+
+    <p style="font-size:12px;color:#888;">{{ ui.footer }}</p>
+</div>
+
+</body>
+</html>
