@@ -2,154 +2,141 @@
 <html>
 <head>
     <meta name="google" content="notranslate">
-
-    <title>{{ ui.prediction_result }}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!DOCTYPE html>
-
-<html>
-<head>
     <title>Prediction Result</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-```
-<style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
-    background: linear-gradient(
-        rgba(34, 49, 34, 0.65),
-        rgba(34, 49, 34, 0.65)
-    ),
-    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(
+                rgba(34, 49, 34, 0.65),
+                rgba(34, 49, 34, 0.65)
+            ),
+            url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
 
-.card {
-    background: rgba(255, 255, 255, 0.94);
-    padding: 30px;
-    border-radius: 14px;
-    max-width: 900px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-    backdrop-filter: blur(6px);
-}
+        .card {
+            background: rgba(255, 255, 255, 0.94);
+            padding: 30px;
+            border-radius: 14px;
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            backdrop-filter: blur(6px);
+        }
 
-h1 {
-    margin-bottom: 10px;
-    font-weight: 600;
-}
+        h1 {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
 
-.result-text {
-    font-size: 20px;
-    margin: 10px 0;
-}
+        .result-text {
+            font-size: 20px;
+            margin: 10px 0;
+        }
 
-.confidence {
-    font-size: 18px;
-    color: #2f6b38;
-    margin-bottom: 20px;
-}
+        .confidence {
+            font-size: 18px;
+            color: #2f6b38;
+            margin-bottom: 20px;
+        }
 
-.images {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
 
-.images div {
-    text-align: center;
-}
+        .images div {
+            text-align: center;
+        }
 
-img {
-    max-width: 300px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
+        img {
+            max-width: 300px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
 
-a {
-    display: inline-block;
-    margin-top: 30px;
-    text-decoration: none;
-    padding: 10px 22px;
-    background: #3a7d44;
-    color: white;
-    border-radius: 8px;
-}
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            padding: 10px 22px;
+            background: #3a7d44;
+            color: white;
+            border-radius: 8px;
+        }
 
-a:hover {
-    background: #2f6b38;
-}
+        a:hover {
+            background: #2f6b38;
+        }
 
-.info-box {
-    margin-top: 30px;
-    text-align: left;
-    background: rgba(245, 252, 246, 0.9);
-    padding: 20px;
-    border-radius: 12px;
-}
+        .info-box {
+            margin-top: 30px;
+            text-align: left;
+            background: rgba(245, 252, 246, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+        }
 
-.info-box h2 {
-    text-align: center;
-    margin-bottom: 15px;
-    color: #2f6b38;
-}
+        .info-box h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #2f6b38;
+        }
 
-.info-box p {
-    margin: 8px 0;
-    font-size: 15px;
-    color: #333;
-}
-</style>
+        .info-box p {
+            margin: 8px 0;
+            font-size: 15px;
+            color: #333;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="card">
+        <h1>✅ Prediction Result</h1>
 
-```
-<div class="card">
-    <h1>✅ Prediction Result</h1>
-
-    <div class="result-text">
-        🌱 Disease Detected: <b>{{ prediction }}</b>
-    </div>
-
-    <div class="confidence">
-        Confidence: {{ confidence }}%
-    </div>
-
-    <div class="images">
-        <div>
-            <h3>Original Image</h3>
-            <img src="{{ url_for('static', filename=uploaded_image) }}">
+        <div class="result-text">
+            🌱 Disease Detected: <b>{{ prediction }}</b>
         </div>
 
-        <div>
-            <h3>Attention Map</h3>
-            <img src="{{ url_for('static', filename=heatmap_image) }}">
+        <div class="confidence">
+            Confidence: {{ confidence }}%
         </div>
+
+        <div class="images">
+            <div>
+                <h3>Original Image</h3>
+                <img src="{{ url_for('static', filename=uploaded_image) }}" alt="Original Image">
+            </div>
+
+            <div>
+                <h3>Attention Map</h3>
+                <img src="{{ url_for('static', filename=heatmap_image) }}" alt="Attention Map">
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h2>🩺 Disease Information</h2>
+            <p><b>Description:</b> {{ description }}</p>
+            <p><b>Symptoms:</b> {{ symptoms }}</p>
+            <p><b>Treatment:</b> {{ treatment }}</p>
+            <p><b>Prevention:</b> {{ prevention }}</p>
+        </div>
+
+        <a href="/">Analyze Again</a>
     </div>
-
-    <div class="info-box">
-        <h2>🩺 Disease Information</h2>
-        <p><b>Description:</b> {{ description }}</p>
-        <p><b>Symptoms:</b> {{ symptoms }}</p>
-        <p><b>Treatment:</b> {{ treatment }}</p>
-        <p><b>Prevention:</b> {{ prevention }}</p>
-    </div>
-
-    <a href="/">Analyze Again</a>
-</div>
-```
-
 </body>
 </html>
-
