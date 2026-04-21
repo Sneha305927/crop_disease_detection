@@ -33,7 +33,7 @@ def get_model():
         model = tf.keras.models.load_model(
         MODEL_PATH,
     compile=False,
-    safe_mode=False
+    
 )
         print("Model loaded!")
     return model
