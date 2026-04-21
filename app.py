@@ -526,65 +526,134 @@ def generate_gradcam(img_path, model, predicted_class):
 
     return superimposed_img
 
+# @app.route("/", methods=["GET", "POST"])
+# def index():
+#     # Get selected language (default English)
+#     lang = request.form.get("language") or request.args.get("lang") or "en"
+
+#     # Haryanvi fallback to Hindi UI
+#     if lang == "hr":
+#         ui = UI_TEXT["hi"]
+#     else:
+#         ui = UI_TEXT.get(lang, UI_TEXT["en"])
+
+    # if request.method == "POST":
+    #     file = request.files["image"]
+
+    #     if file:
+    #         filename = file.filename
+    #         upload_path = os.path.join(UPLOAD_FOLDER, filename)
+    #         file.save(upload_path)
+
+    #         # Predict
+    #         img = image.load_img(upload_path, target_size=IMG_SIZE)
+    #         img_array = image.img_to_array(img)
+    #         img_array = np.expand_dims(img_array, axis=0) / 255.0
+
+    #         model = get_model()
+    #         preds = model.predict(img_array)
+    #         predicted_class = np.argmax(preds[0])
+    #         confidence = float(np.max(preds[0]))
+
+    #         raw_name = class_names[predicted_class]
+
+    #         # Clean the class name for display
+    #         class_name = raw_name.replace("___", " - ").replace("_", " ")
+
+    #         # Get disease info (English base)
+    #         info = disease_info.get(class_name, {
+    #             "description": "No description available.",
+    #             "symptoms": "No symptoms information available.",
+    #             "treatment": "No treatment information available.",
+    #             "prevention": "No prevention information available."
+    #         })
+
+
+#             # Translate disease info if not English
+#             if lang != "en":
+#                 try:
+#                     from deep_translator import GoogleTranslator
+#                     target_lang = "hi" if lang == "hr" else lang
+#                     translator = GoogleTranslator(source="en", target=target_lang)
+#                     info = {
+#                         "description": translator.translate(info["description"]),
+#                         "symptoms": translator.translate(info["symptoms"]),
+#                         "treatment": translator.translate(info["treatment"]),
+#                         "prevention": translator.translate(info["prevention"])
+#                     }
+#                 except Exception as e:
+#                     print("❌ TRANSLATION ERROR:", e)
+#  # fallback to English
+
+#             # Generate heatmap
+#             heatmap_img = generate_gradcam(upload_path, model, predicted_class)
+#             result_path = os.path.join(RESULT_FOLDER, "heatmap_" + filename)
+#             cv2.imwrite(result_path, heatmap_img)
+
+#             return render_template(
+#                 "result.html",
+#                 ui=ui,
+#                 uploaded_image="uploads/" + filename,
+#                 heatmap_image="results/" + "heatmap_" + filename,
+#                 prediction=class_name,
+#                 confidence=round(confidence * 100, 2),
+#                 description=info["description"],
+#                 symptoms=info["symptoms"],
+#                 treatment=info["treatment"],
+#                 prevention=info["prevention"],
+                 
+#             )
+
+# return render_template("index.html", ui=ui, selected_lang=lang)
+
+
+
+# if __name__ == "__main__":
+#     port = int(os.environ.get("PORT", 5000))
+#     app.run(host="0.0.0.0", port=port) 
+
+
+
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # Get selected language (default English)
     lang = request.form.get("language") or request.args.get("lang") or "en"
 
-    # Haryanvi fallback to Hindi UI
     if lang == "hr":
         ui = UI_TEXT["hi"]
     else:
         ui = UI_TEXT.get(lang, UI_TEXT["en"])
 
     if request.method == "POST":
-        file = request.files["image"]
+        try:
+            file = request.files["image"]
 
-        if file:
+            if not file:
+                return "No file uploaded"
+
             filename = file.filename
             upload_path = os.path.join(UPLOAD_FOLDER, filename)
             file.save(upload_path)
 
-            # Predict
             img = image.load_img(upload_path, target_size=IMG_SIZE)
             img_array = image.img_to_array(img)
             img_array = np.expand_dims(img_array, axis=0) / 255.0
 
             model = get_model()
             preds = model.predict(img_array)
+
             predicted_class = np.argmax(preds[0])
             confidence = float(np.max(preds[0]))
 
             raw_name = class_names[predicted_class]
-
-            # Clean the class name for display
             class_name = raw_name.replace("___", " - ").replace("_", " ")
 
-            # Get disease info (English base)
             info = disease_info.get(class_name, {
                 "description": "No description available.",
-                "symptoms": "No symptoms information available.",
-                "treatment": "No treatment information available.",
-                "prevention": "No prevention information available."
+                "symptoms": "No symptoms available.",
+                "treatment": "No treatment available.",
+                "prevention": "No prevention available."
             })
 
-            # Translate disease info if not English
-            if lang != "en":
-                try:
-                    from deep_translator import GoogleTranslator
-                    target_lang = "hi" if lang == "hr" else lang
-                    translator = GoogleTranslator(source="en", target=target_lang)
-                    info = {
-                        "description": translator.translate(info["description"]),
-                        "symptoms": translator.translate(info["symptoms"]),
-                        "treatment": translator.translate(info["treatment"]),
-                        "prevention": translator.translate(info["prevention"])
-                    }
-                except Exception as e:
-                    print("❌ TRANSLATION ERROR:", e)
- # fallback to English
-
-            # Generate heatmap
             heatmap_img = generate_gradcam(upload_path, model, predicted_class)
             result_path = os.path.join(RESULT_FOLDER, "heatmap_" + filename)
             cv2.imwrite(result_path, heatmap_img)
@@ -599,14 +668,15 @@ def index():
                 description=info["description"],
                 symptoms=info["symptoms"],
                 treatment=info["treatment"],
-                prevention=info["prevention"],
-                 
+                prevention=info["prevention"]
             )
+
+        except Exception as e:
+            print("🔥 ERROR:", e)
+            return f"Error occurred: {str(e)}"
 
     return render_template("index.html", ui=ui, selected_lang=lang)
 
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
-
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port) 
