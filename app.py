@@ -17,7 +17,7 @@ UPLOAD_FOLDER = "static/uploads"
 RESULT_FOLDER = "static/results"
 
 if not os.path.exists(MODEL_PATH):
-    url = "https://drive.google.com/uc?id=YOUR_FILE_ID"
+    url = "https://drive.google.com/uc?id=qft7bV4vh4Q-8F-59IsOf_unDv9AmO6W"
     gdown.download(url, MODEL_PATH, quiet=False)
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
