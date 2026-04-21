@@ -6,14 +6,19 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from deep_translator import GoogleTranslator
-
+import gdown
+import os
 
 app = Flask(__name__)
 
 # Paths
-MODEL_PATH = "model/crop_disease_model.h5"
+MODEL_PATH = "model/crop-disease_model.h5"
 UPLOAD_FOLDER = "static/uploads"
 RESULT_FOLDER = "static/results"
+
+if not os.path.exists(MODEL_PATH):
+    url = "https://drive.google.com/uc?id=YOUR_FILE_ID"
+    gdown.download(url, MODEL_PATH, quiet=False)
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULT_FOLDER, exist_ok=True)
