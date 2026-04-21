@@ -30,7 +30,7 @@ def get_model():
     global model
     if model is None:
         print("Loading model...")
-        model = load_model(MODEL_PATH)
+        model = load_model(MODEL_PATH, compile=False)
         print("Model loaded!")
     return model
 print("✅ Model loaded")
